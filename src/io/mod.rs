@@ -155,7 +155,7 @@ pub trait FramedIo {
     fn poll_write(&mut self) -> Async<()>;
 
     /// Write a message frame to the `FramedIo`
-    fn write(&mut self, req: Self::In) -> Poll<(), io::Error>;
+    fn write(&mut self, req: &Self::In) -> Poll<(), io::Error>;
 
     /// Flush pending writes or do any other work not driven by reading /
     /// writing.

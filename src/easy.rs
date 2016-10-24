@@ -300,7 +300,7 @@ pub trait Serialize {
     /// This method will serialize `msg` into the byte buffer provided by `buf`.
     /// The `buf` provided is an internal buffer of the `EasyFramed` instance and
     /// will be written out when possible.
-    fn serialize(&mut self, msg: Self::In, buf: &mut Vec<u8>);
+    fn serialize(&mut self, msg: &Self::In, buf: &mut Vec<u8>);
 }
 
 impl<T, P, S> EasyFramed<T, P, S>
@@ -402,7 +402,7 @@ impl<T, P, S> FramedIo for EasyFramed<T, P, S>
         Async::Ready(())
     }
 
-    fn write(&mut self, msg: Self::In) -> Poll<(), io::Error> {
+    fn write(&mut self, msg: &Self::In) -> Poll<(), io::Error> {
         if !self.poll_write().is_ready() {
             return Err(io::Error::new(io::ErrorKind::InvalidInput,
                                       "transport not currently writable"));
