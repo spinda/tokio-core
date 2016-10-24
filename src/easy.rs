@@ -334,6 +334,10 @@ impl<T, P, S> EasyFramed<T, P, S>
             wr: Vec::with_capacity(8 * 1024),
         }
     }
+
+    pub fn into_upstream(self) -> T {
+        self.upstream
+    }
 }
 
 impl<T, P, S> FramedIo for EasyFramed<T, P, S>
